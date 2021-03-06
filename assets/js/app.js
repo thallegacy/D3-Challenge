@@ -64,4 +64,15 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     chartGroup.append("g")
     .call(leftAxis);
 
+    // append initial circles
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(censusData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", 20)
+    .attr("fill", "rgb(12,200,223)")
+    .attr("opacity", ".5");
+
 });
