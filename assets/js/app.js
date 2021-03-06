@@ -44,7 +44,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     
     // Create the scales for the axes
     var xLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(censusData, d => d.poverty)])
+    .domain(d3.extent(censusData, d => d.poverty))
     .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
@@ -71,8 +71,25 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", 20)
+    .attr("r", 17)
     .attr("fill", "rgb(12,200,223)")
     .attr("opacity", ".5");
+
+    // append text to the circles
+    chartGroup.append("g")
+    .selectAll('text')
+    .data(censusData)
+    .enter()
+    .append("text")
+    .text(d => d.abbr)
+    .attr("x", d => xLinearScale(d.poverty))
+    .attr("y", d => yLinearScale(d.healthcare))
+    .classed(".stateText", true)
+    .attr("text-anchor", "middle")
+    .attr("fill", "black")
+    .attr("font-size", "10px")
+    .style("font-weight", "bold")
+    .attr("alignment-baseline", "central");
+ 
 
 });
