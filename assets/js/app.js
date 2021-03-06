@@ -27,6 +27,7 @@ var chartGroup = svg.append("g")
 
 //Function to pull data from CSV
 d3.csv("assets/data/data.csv").then(function (censusData) {
+    //console check
     console.log(censusData);
     
     // Set data used for chart as numbers
@@ -34,5 +35,12 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     censusData.forEach(function (data) {
           data.poverty = +data.poverty;
           data.healthcare = +data.healthcare;
+          
+          //console check
+          console.log(data.poverty);
+          console.log(data.healthcare);
+          
       });
+    
+
 });
