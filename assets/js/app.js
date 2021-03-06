@@ -53,9 +53,15 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
 
 
     // Create the axes based on the scales
-    // ==============================
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
+    // Append the axes to the chart
+    chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+    chartGroup.append("g")
+    .call(leftAxis);
 
 });
