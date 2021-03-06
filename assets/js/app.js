@@ -24,3 +24,15 @@ var svg = d3
 // and shift the latter by left and top margins.
 var chartGroup = svg.append("g")
 .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+//Function to pull data from CSV
+d3.csv("assets/data/data.csv").then(function (censusData) {
+    console.log(censusData);
+    
+    // Set data used for chart as numbers
+   
+    censusData.forEach(function (data) {
+          data.poverty = +data.poverty;
+          data.healthcare = +data.healthcare;
+      });
+});
