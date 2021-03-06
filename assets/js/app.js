@@ -42,5 +42,14 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
           
       });
     
+    // Create the scales for the axes
+    var xLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(censusData, d => d.poverty)])
+    .range([0, width]);
+
+    var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(censusData, d => d.healthcare)])
+    .range([height, 0]);
+
 
 });
