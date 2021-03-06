@@ -103,5 +103,15 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .attr("fill", "black")
     .style("font-weight", "bold");
 
-
+    // left (y) Axis
+    chartGroup.append("text")
+    .attr("y", 0 - ((margin.left / 2) + 2))
+    .attr("x", 0 - (height / 2))
+    .text("Lacks Healthcare (%)")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .style("font-weight", "bold")
+    .attr("transform", "rotate(-90)");
+    
 });
