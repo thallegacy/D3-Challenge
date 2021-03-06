@@ -74,6 +74,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .attr("r", 17)
     .attr("fill", "rgb(12,200,223)")
     .attr("opacity", ".5");
+    
 
     // append text to the circles
     chartGroup.append("g")
@@ -86,10 +87,21 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .attr("y", d => yLinearScale(d.healthcare))
     .classed(".stateText", true)
     .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "central")
     .attr("fill", "black")
     .attr("font-size", "10px")
-    .style("font-weight", "bold")
-    .attr("alignment-baseline", "central");
+    .style("font-weight", "bold");
  
+    // append text titles to the axes
+
+    // bottom (x) Axis
+    chartGroup.append("text")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+    .text("In Poverty (%)")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .style("font-weight", "bold");
+
 
 });
