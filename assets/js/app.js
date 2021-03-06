@@ -18,3 +18,9 @@ var svg = d3
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
+
+// append an SVG group to the scatter id
+// to hold the chart
+// and shift the latter by left and top margins.
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`);
