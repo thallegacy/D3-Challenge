@@ -52,4 +52,10 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .range([height, 0]);
 
 
+    // Create the axes based on the scales
+    // ==============================
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+
 });
