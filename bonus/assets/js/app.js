@@ -143,7 +143,39 @@ d3.csv("assets/data/data.csv").then(function(demoData, err) {
     // x and y LinearScale function above csv import
   var xLinearScale = xScale(demoData, chosenXAxis, width);
   var yLinearScale = yScale(demoData, chosenYAxis, height);
-  
-  // Create initial axis functions.
+
+  // Create initial axes functions
   var bottomAxis =d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
+
+  // append x axis
+  var xAxis = chartGroup.append("g")
+  .classed("x-axis", true)
+  .attr("transform", `translate(0, ${height})`)
+  .call(bottomAxis);
+
+  // append y axis
+  chartGroup.append("g")
+    .call(leftAxis);
+  
+  // append initial circles
+  var circlesGroup = chartGroup.selectAll("circle")
+  .data(censusData)
+  .enter()
+  .append("circle")
+  .attr("cx", d => xLinearScale(d[chosenXAxis]))
+  .attr("cy", d => yLinearScale(d[chosenYAxis]))
+  .attr("r", 17)
+  .attr("fill", "rgb(12,200,223)")
+  .attr("opacity", ".5")
+  // append circle text
+  .append("text")
+  .text(d => d.abbr)
+  .attr("x", d => xLinearScale(d[chosenXAxis]))
+  .attr("y", d => yLinearScale(d[chosenYAxis]))
+  .classed(".stateText", true)
+  .attr("text-anchor", "middle")
+  .attr("alignment-baseline", "central")
+  .attr("fill", "black")
+  .attr("font-size", "10px")
+  .style("font-weight", "bold");
