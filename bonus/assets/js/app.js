@@ -126,3 +126,24 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   return circlesGroup;
 }
+
+// Retrieve data from the CSV file and execute everything below
+d3.csv("assets/data/data.csv").then(function(demoData, err) {
+  if (err) throw err;
+  
+  // Parse data.
+  demoData.forEach(function(data) {
+      data.poverty = +data.poverty;
+      data.healthcare = +data.healthcare;
+      data.age = +data.age;
+      data.smokes = +data.smokes;
+      data.income = +data.income;
+      data.obesity = data.obesity;
+  });
+    // x and y LinearScale function above csv import
+  var xLinearScale = xScale(demoData, chosenXAxis, width);
+  var yLinearScale = yScale(demoData, chosenYAxis, height);
+  
+  // Create initial axis functions.
+  var bottomAxis =d3.axisBottom(xLinearScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
