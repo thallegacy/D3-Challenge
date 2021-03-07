@@ -86,7 +86,7 @@ function renderCircles(circlesGroup, newXScale, newYScale, chosenXAxis, chosenYA
 }
 
 // function used for updating circles group with new tooltip
-function updateToolTip(chosenXAxis, circlesGroup) {
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
   var xlabel;
   var ylabel;
@@ -226,3 +226,48 @@ d3.csv("assets/data/data.csv").then(function(demoData, err) {
   .attr("value", "obesity")
   .classed("inactive", true)
   .text("Obese (%)");
+
+  // updateToolTip function above csv import
+  var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+// x axis labels event listener
+labelsGroup.selectAll("text")
+.on("click", function() {
+  // get value of selection
+  var value = d3.select(this).attr("value");
+  if (value !== chosenXAxis) {
+
+    // replaces chosenXAxis with value
+    chosenXAxis = value;
+
+    // functions here found above csv import
+    // updates x scale for new data
+    xLinearScale = xScale(censusData, chosenXAxis);
+
+    // updates x axis with transition
+    xAxis = renderAxes(xLinearScale, xAxis);
+
+    // updates circles with new x values
+    circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+
+    // updates tooltips with new info
+    circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
+    // changes classes to change bold text
+    if (chosenXAxis === "num_albums") {
+      albumsLabel
+        .classed("active", true)
+        .classed("inactive", false);
+      hairLengthLabel
+        .classed("active", false)
+        .classed("inactive", true);
+    }
+    else {
+      albumsLabel
+        .classed("active", false)
+        .classed("inactive", true);
+      hairLengthLabel
+        .classed("active", true)
+        .classed("inactive", false);
+    }
+  }
+});
