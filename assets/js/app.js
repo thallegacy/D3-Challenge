@@ -37,8 +37,8 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
           data.healthcare = +data.healthcare;
           
           //console check
-          console.log(data.poverty);
-          console.log(data.healthcare);
+          console.log("x is ", data.poverty);
+          console.log("y is ", data.healthcare);
           
       });
     
@@ -48,7 +48,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(censusData, d => d.healthcare)])
+    .domain(d3.extent(censusData, d => d.healthcare))
     .range([height, 0]);
 
 
@@ -71,9 +71,8 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", 17)
-    .attr("fill", "rgb(12,200,223)")
-    .attr("opacity", ".5");
+    .attr("r", 20)
+    .classed("stateCircle", true);
     
 
     // append text to the circles
@@ -85,12 +84,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .text(d => d.abbr)
     .attr("x", d => xLinearScale(d.poverty))
     .attr("y", d => yLinearScale(d.healthcare))
-    .classed(".stateText", true)
-    .attr("text-anchor", "middle")
-    .attr("alignment-baseline", "central")
-    .attr("fill", "black")
-    .attr("font-size", "10px")
-    .style("font-weight", "bold");
+    .classed("stateText", true);
  
     // append text titles to the axes
 
