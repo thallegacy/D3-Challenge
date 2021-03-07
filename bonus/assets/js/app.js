@@ -179,3 +179,25 @@ d3.csv("assets/data/data.csv").then(function(demoData, err) {
   .attr("fill", "black")
   .attr("font-size", "10px")
   .style("font-weight", "bold");
+
+  // append x labels
+  var xlabelsGroup = chartGroup.append("g")
+  .attr("transform", `translate(${width / 2}, ${height + 20})`);
+var povertyLabel = xlabelsGroup.append("text")
+  .attr("x", 0)
+  .attr("y", 20)
+  .attr("value", "poverty") // value to grab for event listener
+  .classed("active", true)
+  .text("In Poverty (%)");
+var ageLabel = xlabelsGroup.append("text")
+  .attr("x", 0)
+  .attr("y", 40)
+  .attr("value", "age") // value to grab for event listener
+  .classed("inactive", true)
+  .text("Age (Median)");
+var incomeLabel = xlabelsGroup.append("text")
+  .attr("x", 0)
+  .attr("y", 60)
+  .attr("value", "income") // value to grab for event listener
+  .classed("inactive", true)
+  .text("Household Income (Median)");
