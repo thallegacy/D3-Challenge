@@ -84,3 +84,45 @@ function renderCircles(circlesGroup, newXScale, newYScale, chosenXAxis, chosenYA
   
   return circlesGroup;
 }
+
+// function used for updating circles group with new tooltip
+function updateToolTip(chosenXAxis, circlesGroup) {
+
+  var xlabel;
+  var ylabel;
+  
+    //  For X Axis tips.
+    if (chosenXAxis === "poverty") {
+      xlabel = "Poverty: ";
+  } else if (chosenXAxis === "income") {
+      xlabel = "Median Income: "
+  } else {
+      xlabel = "Age: "
+  }
+  // For Y Axis tips.
+  if (chosenYAxis === "healthcare") {
+      ylabel = "Lacks Healthcare: ";
+  } else if (chosenYAxis === "smokes") {
+      ylabel = "Smokers: "
+  } else {
+      ylabel = "Obesity: "
+  }
+  var toolTip = d3.tip()
+    .attr("class", "tooltip")
+    .offset([80, -60])
+    .html(function(d) {
+      return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
+    });
+
+  circlesGroup.call(toolTip);
+
+  circlesGroup.on("mouseover", function(data) {
+    toolTip.show(data);
+  })
+    // onmouseout event
+    .on("mouseout", function(data, index) {
+      toolTip.hide(data);
+    });
+
+  return circlesGroup;
+}
