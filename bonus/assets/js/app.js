@@ -244,30 +244,45 @@ labelsGroup.selectAll("text")
     xLinearScale = xScale(censusData, chosenXAxis);
 
     // updates x axis with transition
-    xAxis = renderAxes(xLinearScale, xAxis);
+    xAxis = renderXAxes(xLinearScale, xAxis);
 
     // updates circles with new x values
-    circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+    circlesGroup = renderCircles(circlesGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 
     // updates tooltips with new info
-    circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+    circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
     // changes classes to change bold text
-    if (chosenXAxis === "num_albums") {
-      albumsLabel
-        .classed("active", true)
-        .classed("inactive", false);
-      hairLengthLabel
-        .classed("active", false)
-        .classed("inactive", true);
-    }
-    else {
-      albumsLabel
-        .classed("active", false)
-        .classed("inactive", true);
-      hairLengthLabel
-        .classed("active", true)
-        .classed("inactive", false);
+    if (chosenXAxis === "poverty") {
+      povertyLabel
+          .classed("active", true)
+          .classed("inactive", false);
+      ageLabel
+          .classed("active", false)
+          .classed("inactive", true);
+      incomeLabel
+          .classed("active", false)
+          .classed("inactive", true);
+    } else if (chosenXAxis === "age") {
+      povertyLabel
+          .classed("active", false)
+          .classed("inactive", true);
+      ageLabel
+          .classed("active", true)
+          .classed("inactive", false);
+      incomeLabel
+          .classed("active", false)
+          .classed("inactive", true);
+    } else {
+      povertyLabel
+          .classed("active", false)
+          .classed("inactive", true);
+      ageLabel
+          .classed("active", false)
+          .classed("inactive", true)
+      incomeLabel
+          .classed("active", true)
+          .classed("inactive", false);
     }
   }
 });
