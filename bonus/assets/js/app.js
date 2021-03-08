@@ -123,7 +123,16 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     .attr("class", "d3-tip")
     .offset([-8, 0])
     .html(function(d) {
-      return (`${d.state}<br>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
+      if (chosenXAxis === "age") {
+          return (`${d.state}<br>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
+          
+        } else if (chosenXAxis !== "poverty" && chosenXAxis !== "age") {
+          
+            return (`${d.state}<br>${xlabel}$${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
+          } else {
+          
+          return (`${d.state}<br>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
+          }  
     });
 
   circlesGroup.call(toolTip);
@@ -188,6 +197,7 @@ d3.csv("assets/data/data.csv").then(function(censusData, err) {
   .append("text")
   .attr("x", d => xLinearScale(d[chosenXAxis]))
   .attr("y", d => yLinearScale(d[chosenYAxis]))
+  .attr("dy", 3)
   .text(d => d.abbr)
   .classed("stateText", true);
  

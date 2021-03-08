@@ -37,18 +37,22 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
           data.healthcare = +data.healthcare;
           
           //console check
-          console.log("x is ", data.poverty);
-          console.log("y is ", data.healthcare);
+          //console.log("x is ", data.poverty);
+          //console.log("y is ", data.healthcare);
           
       });
     
     // Create the scales for the axes
     var xLinearScale = d3.scaleLinear()
-    .domain(d3.extent(censusData, d => d.poverty))
+    .domain([d3.min(censusData, d => d.poverty) * 0.8,
+      d3.max(censusData, d => d.poverty) * 1.2
+    ])
     .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-    .domain(d3.extent(censusData, d => d.healthcare))
+    .domain([d3.min(censusData, d => d.healthcare) * 0.8,
+      d3.max(censusData, d => d.healthcare) * 1.2
+    ])
     .range([height, 0]);
 
 
@@ -71,7 +75,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", 20)
+    .attr("r", 15)
     .classed("stateCircle", true);
     
 
@@ -84,6 +88,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .text(d => d.abbr)
     .attr("x", d => xLinearScale(d.poverty))
     .attr("y", d => yLinearScale(d.healthcare))
+    .attr("dy", 3)
     .classed("stateText", true);
  
     // append text titles to the axes
