@@ -181,7 +181,7 @@ d3.csv("assets/data/data.csv").then(function(censusData, err) {
   .classed("stateCircle", true);
 
   // append circle text
-  chartGroup.append("g")
+  var textGroup = chartGroup.append("g")
   .selectAll('text')
   .data(censusData)
   .enter()
@@ -269,6 +269,9 @@ d3.csv("assets/data/data.csv").then(function(censusData, err) {
 
     // updates circles with new x values
     circlesGroup = renderCircles(circlesGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+    
+    // updates circle text with new x values
+    textGroup = renderText(textGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 
     // updates tooltips with new info
     circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
@@ -329,7 +332,10 @@ d3.csv("assets/data/data.csv").then(function(censusData, err) {
     // updates circles with new y values
     circlesGroup = renderCircles(circlesGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 
-    // updates tooltips with new info
+    // updates circle text with new y values
+    textGroup = renderText(textGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+    
+// updates tooltips with new info
     circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
     // changes classes to change bold text
