@@ -1,6 +1,6 @@
 // Set the width, height amd margins for the SVG canvas
 var svgWidth = 960;
-var svgHeight = 500;
+var svgHeight = 550;
 
 var margin = {
   top: 20,
@@ -199,7 +199,8 @@ d3.csv("assets/data/data.csv").then(function(censusData, err) {
   .attr("y", d => yLinearScale(d[chosenYAxis]))
   .attr("dy", 3)
   .text(d => d.abbr)
-  .classed("stateText", true);
+  .classed("stateText", true)
+  .attr("text-anchor", "middle");
  
 
   // append x labels
